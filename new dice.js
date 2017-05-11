@@ -5,6 +5,17 @@ function startGame () {
 	return playerDiceChoice;
 }
 
+function removePlayerDice (playerDiceChoice) {
+	var playerDiceList= [("1"),("2"),("3"),("4"),("5"),("6")];	
+		for (var i=0; i<playerDiceList.length; i++) {
+			if (i==playerDiceChoice) {
+				 var diceToBePushed=playerDiceList.splice(i-1,1);
+				return playerDiceList;
+			}
+		else {}
+		}
+}
+
 function playerTurn (playerDiceChoice) {
 	var playerDiceRoll;
 	switch (playerDiceChoice) {
@@ -31,10 +42,15 @@ function playerTurn (playerDiceChoice) {
 	return playerDiceRoll;
 }
 
-function computerTurn () {
-	var getComputerChoice=(Math.floor(Math.random()*(6-1))+1).toString();
+function computerStart () {
+	var computerDiceChoice=(Math.floor(Math.random()*(6-1))+1).toString();
+	return computerDiceChoice;
+}
+
+function computerTurn (computerDiceChoice) {
+	
 	var computerDiceRoll;
-	switch (getComputerChoice) {
+	switch (computerDiceChoice) {
 		case "1":
 			computerDiceRoll=rollDice(4);
 			break;
@@ -56,6 +72,17 @@ function computerTurn () {
 	} 
 
 	return computerDiceRoll;
+}
+
+function removeComputerDice (computerDiceChoice) {
+	var computerDiceList= ["1","2","3","4","5","6"];
+		for (var i=0; i<computerDiceList.length; i++) {
+			if (i==computerDiceChoice) {
+				var diceToBePushed=computerDiceList.splice(i-1,1);
+				return computerDiceList;
+			}
+		else {}
+		}
 }
 
 function compareRoll (playerTurn, computerTurn) {
@@ -129,12 +156,16 @@ function runGame () {
 		var userTotalScore =0;
 		var compTotalScore =0;
 		var getCompareRoll=true;
-		while (getCompareRoll) {
+
+	while (getCompareRoll) {
 		var userInitialChoice=startGame();
 		var getUserChoice=playerTurn(userInitialChoice);
-		var getComputerChoice=computerTurn();
+		var getInitialComputerChoice=computerStart();
+		var getPlayerDiceList=removePlayerDice(userInitialChoice);
+		var getComputerDiceList=removeComputerDice(getInitialComputerChoice);
 		userTotalScore=addPlayerValues(getUserChoice, userTotalScore);
-		compTotalScore=addCompValues(getComputerChoice, compTotalScore);
+		compTotalScore=addCompValues(getInitialComputerChoice, compTotalScore);
+		
 		console.log("Player score: " + userTotalScore);
 		console.log("Computer score: " + compTotalScore);
 		getCompareRoll=compareRoll(userTotalScore,compTotalScore);
