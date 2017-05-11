@@ -1,66 +1,66 @@
 "use strict"
 
 function startGame () {
-	var userChoice=prompt("First person to get 50 points wins. You have to use each die one time before you can roll again.  Choose your which dice to roll. 1. 4d6, 2. 6d6, 3.8d6, 4. 10d6, 5. 12d 6. 20d6");
-	return userChoice;
+	var playerDiceChoice=prompt("First person to get 50 points wins. You have to use each die one time before you can roll again.  Choose your which dice to roll. 1. 4d6, 2. 6d6, 3.8d6, 4. 10d6, 5. 12d 6. 20d6");
+	return playerDiceChoice;
 }
 
-function userChoice (userChoice) {
-	var userDie;
-	switch (userChoice) {
+function playerTurn (playerDiceChoice) {
+	var playerDiceRoll;
+	switch (playerDiceChoice) {
 		case "1":
-			userDie=rollDice(4);
+			playerDiceRoll=rollDice(4);
 			break;
 		case "2":
-			userDie=rollDice(6);	
+			playerDiceRoll=rollDice(6);	
 			break;
 		case "3":
-			userDie=rollDice(8);
+			playerDiceRoll=rollDice(8);
 			break;
 		case "4":
-			userDie=rollDice(10);
+			playerDiceRoll=rollDice(10);
 			break;
 		case "5":
-			userDie=rollDice(12);
+			playerDiceRoll=rollDice(12);
 			break;
 		case "6":
-			userDie=rollDice(20);
+			playerDiceRoll=rollDice(20);
 			break;
 	} 
 
-	return userDie;
+	return playerDiceRoll;
 }
 
-function computerChoice () {
+function computerTurn () {
 	var getComputerChoice=(Math.floor(Math.random()*(6-1))+1).toString();
-	var compDie;
+	var computerDiceRoll;
 	switch (getComputerChoice) {
 		case "1":
-			compDie=rollDice(4);
+			computerDiceRoll=rollDice(4);
 			break;
 		case "2":
-			compDie=rollDice(6);
+			computerDiceRoll=rollDice(6);
 			break;	
 		case "3":
-			compDie=rollDice(8);
+			computerDiceRoll=rollDice(8);
 			break;
 		case "4":
-			compDie=rollDice(10);
+			computerDiceRoll=rollDice(10);
 			break;
 		case "5":
-			compDie=rollDice(12);
+			computerDiceRoll=rollDice(12);
 			break;
 		case "6":
-			compDie=rollDice(20);
+			computerDiceRoll=rollDice(20);
 			break;
 	} 
 
-	return compDie;
+	return computerDiceRoll;
 }
 
-function compareRoll (userChoice, compChoice) {
-	if (userChoice>=50 && compChoice >= 50) {
-		if (userChoice>compChoice) {
+function compareRoll (playerTurn, computerTurn) {
+	if (playerTurn>=50 && computerTurn >= 50) {
+		if (playerTurn>computerTurn) {
 			alert("Player wins!");
 			return false;
 		}
@@ -69,11 +69,11 @@ function compareRoll (userChoice, compChoice) {
 			return false;
 		}
 	}
-	else if(userChoice>=50){
+	else if(playerTurn>=50){
 		alert("Player wins!");
 		return false;
 	}
-	else if(compChoice>=50){
+	else if(computerTurn>=50){
 		alert("Computer wins!");
 			return false;
 	}
@@ -83,13 +83,13 @@ function compareRoll (userChoice, compChoice) {
 	}
 }
 
-function addPlayerValues (userChoice, userTotalScore) {
-		userTotalScore+=userChoice;
+function addPlayerValues (playerTurn, userTotalScore) {
+		userTotalScore+=playerTurn;
 		return userTotalScore;
 }
 
-function addCompValues (compChoice, compTotalScore) {
-		compTotalScore+=compChoice;
+function addCompValues (computerTurn, compTotalScore) {
+		compTotalScore+=computerTurn;
 		return compTotalScore;
 }
 
@@ -131,13 +131,13 @@ function runGame () {
 		var getCompareRoll=true;
 		while (getCompareRoll) {
 		var userInitialChoice=startGame();
-		var getUserChoice=userChoice(userInitialChoice);
-		var getComputerChoice=computerChoice();
+		var getUserChoice=playerTurn(userInitialChoice);
+		var getComputerChoice=computerTurn();
 		userTotalScore=addPlayerValues(getUserChoice, userTotalScore);
 		compTotalScore=addCompValues(getComputerChoice, compTotalScore);
-		console.log("User score: " + userTotalScore);
-		console.log("Comp score: " + compTotalScore);
+		console.log("Player score: " + userTotalScore);
+		console.log("Computer score: " + compTotalScore);
 		getCompareRoll=compareRoll(userTotalScore,compTotalScore);
 	}
 }
-//runGame ();
+
