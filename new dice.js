@@ -43,7 +43,7 @@ function playerTurn (playerDiceChoice) {
 }
 
 function computerStart () {
-	var computerDiceChoice=(Math.floor(Math.random()*(6-1))+1).toString();
+	var computerDiceChoice=(Math.floor(Math.random()*(6-1))+1);
 	return computerDiceChoice;
 }
 
@@ -74,17 +74,6 @@ function computerTurn (computerDiceChoice) {
 	return computerDiceRoll;
 }
 
-function removeComputerDice (computerDiceChoice) {
-	var computerDiceList= ["1","2","3","4","5","6"];
-		for (var i=0; i<computerDiceList.length; i++) {
-			if (i==computerDiceChoice) {
-				var diceToBePushed=computerDiceList.splice(i-1,1);
-				return computerDiceList;
-			}
-		else {}
-		}
-}
-
 function compareRoll (playerTurn, computerTurn) {
 	if (playerTurn>=50 && computerTurn >= 50) {
 		if (playerTurn>computerTurn) {
@@ -109,6 +98,18 @@ function compareRoll (playerTurn, computerTurn) {
 		return true;
 	}
 }
+
+function removeComputerDice (computerDiceChoice) {
+	var computerDiceList= ["1","2","3","4","5","6"];
+		for (var i=0; i<computerDiceList.length; i++) {
+			if (i==computerDiceChoice) {
+				var diceToBePushed=computerDiceList.splice(i-1,1);
+				return computerDiceList;
+			}
+		else {}
+		}
+}
+
 
 function addPlayerValues (playerTurn, userTotalScore) {
 		userTotalScore+=playerTurn;
