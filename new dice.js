@@ -1,20 +1,28 @@
 "use strict"
 
 function startGame () {
+	if (playerDiceList === 0){
+			var playerDiceList = ["1","2","3","4","5","6"];
+		}
 	var playerDiceChoice=prompt("First person to get 50 points wins. You have to use each die one time before you can roll again.  Choose your which dice to roll. 1. 4d6, 2. 6d6, 3.8d6, 4. 10d6, 5. 12d 6. 20d6");
 	return playerDiceChoice;
 }
 
-function removePlayerDice (playerDiceChoice) {
-	var playerDiceList= [("1"),("2"),("3"),("4"),("5"),("6")];	
-		for (var i=0; i<playerDiceList.length; i++) {
+function removePlayerDice (playerDiceChoice, playerDiceList) {
+	for (var i=0; i<playerDiceList.length; i++) {
 			if (i==playerDiceChoice) {
-				 var diceToBePushed=playerDiceList.splice(i-1,1);
-				return playerDiceList;
-			}
-		else {}
-		}
+				playerDiceList.splice(i-1,1).toString();
+				}
+		} 	
+		return playerDiceList;
 }
+
+function renewPlayerDiceList (playerDiceList, updatedPlayerDiceList) {
+		playerDiceList=updatedPlayerDiceList;
+		return playerDiceList;
+}
+
+
 
 function playerTurn (playerDiceChoice) {
 	var playerDiceRoll;
@@ -99,15 +107,15 @@ function compareRoll (playerTurn, computerTurn) {
 	}
 }
 
-function removeComputerDice (computerDiceChoice) {
-	var computerDiceList= ["1","2","3","4","5","6"];
+function removeComputerDice (computerDiceChoice, computerDiceList) {
 		for (var i=0; i<computerDiceList.length; i++) {
 			if (i==computerDiceChoice) {
 				var diceToBePushed=computerDiceList.splice(i-1,1);
-				return computerDiceList;
+				
 			}
-		else {}
-		}
+		
+		} 
+		return computerDiceList;
 }
 
 
@@ -157,13 +165,17 @@ function runGame () {
 		var userTotalScore =0;
 		var compTotalScore =0;
 		var getCompareRoll=true;
-
+		var playerDiceList = ["1","2","3","4","5","6"];
+		var computerDiceList=["1","2","3","4","5","6"];
 	while (getCompareRoll) {
-		var userInitialChoice=startGame();
+		var userInitialChoice=startGame(playerDiceList);
 		var getUserChoice=playerTurn(userInitialChoice);
 		var getInitialComputerChoice=computerStart();
-		var getPlayerDiceList=removePlayerDice(userInitialChoice);
-		var getComputerDiceList=removeComputerDice(getInitialComputerChoice);
+		playerDiceList=removePlayerDice(userInitialChoice, playerDiceList);
+		var getUpdatedPlayerDiceList=renewPlayerDiceList(playerDiceList);
+		var getRenewPlayerDiceList=renewPlayerDiceList(playerDiceList, getUpdatedPlayerDiceList);
+
+		computerDiceList=removeComputerDice(getInitialComputerChoice, computerDiceList);
 		userTotalScore=addPlayerValues(getUserChoice, userTotalScore);
 		compTotalScore=addCompValues(getInitialComputerChoice, compTotalScore);
 		
